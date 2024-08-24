@@ -47,7 +47,7 @@ WHERE category = 'Kitchen Supplies';
 -- 4. Select the SUM of the Stock Quantity of Wireless Earbuds
 SELECT SUM(stock_quantity), item_name
 FROM superstore
-Where item_name = 'Wireless Earbuds';
+WHERE item_name = 'Wireless Earbuds';
 
 -- 5. Order the items by price
 Select item_name, price
