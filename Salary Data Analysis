@@ -1,11 +1,25 @@
-# This project utilized data from the following dataset: https://www.kaggle.com/datasets/mohithsairamreddy/salary-data
+-- SQL Portfolio: Salary Data Analysis
+-- This file is one of many projects within my SQL portfolio, showcasing foundational and intermediate SQL skills.
+-- Each project demonstrates specific use cases for SQL in data analysis, including filtering, aggregation, grouping, and more.
 
-# The following SQL was written to answer specific questions about the salary data:
+-- Project: Salary Data Analysis
+-- Dataset Source: https://www.kaggle.com/datasets/mohithsairamreddy/salary-data
+
+-- Overview:
+-- This project explores salary data to uncover insights into how various factors like gender, education, age, and experience impact salaries.
+-- Below are the SQL queries and their corresponding goals.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Review all information in the database
 -- This query allows us to inspect the entire dataset to understand its structure and contents.
 SELECT *
 FROM salary_data;
+
+-- Insights:
+-- The dataset contains 6 columns: Age, Gender, Education Level, Job Title, Years of Experience, and Salary.
+-- It is well-structured with no obvious missing values.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- What is the average salary by gender
 -- This query helps identify potential gender pay disparities.
@@ -16,6 +30,18 @@ FROM
     salary_data
 GROUP BY 
     Gender;
+
+-- Insights:
+-- Average salary by gender:
+-- 1. Female: $107,853.20
+-- 2. Male: $121,323.79
+-- 3. Other: $125,869.86
+-- Observations:
+-- 1. Males earn approximately 12.5% more on average than females.
+-- 2. Individuals identifying as "Other" earn approximately 3.7% more than males and 16.7% more than females.
+-- 3. The data indicates a noticeable gender pay gap, with females earning the least on average.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- What is the average salary by education level
 -- This query highlights how education impacts salary levels.
@@ -28,6 +54,24 @@ GROUP BY
     "Education Level"
 ORDER BY 
     Average_Salary DESC;
+
+-- Insights:
+-- Average salary by education level:
+-- 1. PhD: $165,684.83
+-- 2. Master's: $157,604.17
+-- 3. Master's Degree: $124,995.82
+-- 4. Bachelor's: $124,767.66
+-- 5. Bachelor's Degree: $85,099.74
+-- 6. High School: $36,706.69
+-- 7. (Blank/Education not listed): $33,333.33
+
+-- Observations:
+-- 1. PhD holders earn the highest salaries on average, with a significant lead over all other education levels.
+-- 2. There seems to be inconsistency in how education levels are recorded (e.g., "Master's" vs. "Master's Degree"). These differences may skew insights and would benefit from data standardization.
+-- 3. Those with only a High School education earn significantly less on average compared to those with higher education levels.
+-- 4. Blank or missing education data corresponds to the lowest salaries on average, suggesting incomplete or unskilled job records.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- How is the salary distributed by age
 -- This query shows the relationship between age and average salary, as well as total employees by age group.
@@ -42,6 +86,20 @@ GROUP BY
 ORDER BY 
     Age;
 
+-- Insights:
+-- 1. Employees aged 45–55 earn the highest average salaries, peaking at $200,356 at age 51.
+-- 2. Salaries generally increase with age until the mid-50s, after which they tend to plateau or slightly decline.
+-- 3. Younger employees (ages 25–30) earn significantly less, with an average salary around $63,730–$100,904.
+-- 4. Employees in their mid-to-late 30s and early 40s experience the steepest growth in salaries, indicating these are the prime earning years.
+-- 5. There are some outliers (e.g., salaries of $200,000 for ages 61–62), likely due to senior positions or highly skilled roles.
+
+-- Observations:
+-- 1. Salary growth aligns closely with experience, but further investigation into the plateau or decline post-55 could reveal if this is due to part-time roles, retirement transitions, or fewer senior positions.
+-- 2. Additional filters on "Job Title" and "Years of Experience" could help explain these trends.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
 -- What is the average salary based on years of experience
 -- This query demonstrates the correlation between years of experience and average salary.
 SELECT 
@@ -53,6 +111,23 @@ GROUP BY
     "Years of Experience"
 ORDER BY 
     "Years of Experience";
+
+-- Insights:
+-- 1. Salaries generally increase with experience, peaking between 22–24 years at an average salary of $211,225.
+-- 2. For employees with 1–5 years of experience:
+--    - Average salaries grow from $46,993 at 1 year to $103,111 at 5 years.
+-- 3. Employees with 6–10 years of experience earn $111,636 to $138,021 on average, indicating steady growth.
+-- 4. For those with 11–20 years of experience, salaries stabilize between $153,060 and $182,430, marking peak earning years.
+-- 5. Salaries slightly plateau or decline after 25+ years of experience, with averages ranging from $163,339 to $192,540.
+-- 6. Outliers for 20+ years of experience, such as $211,225, suggest high-level roles or unique circumstances for certain employees.
+
+-- Observations:
+-- 1. The sharp salary growth for early-career employees (1–10 years) suggests strong incentives for building experience in this range.
+-- 2. The plateau post-25 years could indicate fewer opportunities for salary increases or employees transitioning to less demanding roles.
+-- 3. Additional filtering by "Job Title" and "Education Level" could provide insights into whether the observed trends are uniform or role-specific.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- What are the highest-paying jobs
 -- This query identifies the top 10 job titles with the highest average salaries and shows the total number of employees in each role.
@@ -68,6 +143,22 @@ ORDER BY
     Average_Salary DESC
 LIMIT 10;
 
+-- Insights:
+-- Top-paying jobs:
+-- 1. Chief Technology Officer (CTO) and CEO: $250,000
+-- 2. Chief Data Officer: $220,000
+-- 3. Director of Data Science: $204,561 
+-- 4. VP of Finance: $200,000
+-- 5. Marketing Director: $183,984
+
+-- Observations:
+-- 1. Leadership roles (CTO, CEO, and VP-level positions) dominate the highest salaries, underscoring the financial rewards for executive-level responsibilities.
+-- 2. Director-level roles in Data Science, Marketing, and Human Resources show a premium on specialized expertise and strategic contributions.
+-- 3. High salaries for Marketing Directors ($183,984 across 64 employees) indicate robust demand for professionals who can drive revenue and engagement.
+-- 4. With $250,000 as the ceiling salary, the gap between top-tier roles and the average salary in the dataset highlights significant income stratification in leadership roles.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
 -- What is the average salary by gender and job title
 -- This query analyzes salary variations across different job titles and genders to uncover potential disparities.
 SELECT 
@@ -82,6 +173,26 @@ GROUP BY
 ORDER BY 
   "Job Title";
 
+-- Insights:
+-- Gender pay disparities are evident across several roles. For example:
+-- 1. Software Engineer:
+--    - Female: $104,668.39
+--    - Male: $118,335.38
+--    - Difference: Male salaries are 13.1% higher on average.
+-- 2. Graphic Designer:
+--    - Female: $49,473.68
+--    - Male: $51,666.67
+--    - Difference: Male salaries are 4.4% higher on average.
+-- 3. Full Stack Engineer:
+--    - Female: $122,738.42
+--    - Male: $130,721.82
+--    - Other: $115,212.50
+--    - Observations:
+--        - Male salaries are 6.5% higher than female salaries.
+--        - "Other" gender earns 11.9% less than males and 6.1% less than females.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
 -- What are the top 5 highest-paying job titles
 -- This query identifies the five job titles with the highest average salaries.
 SELECT 
@@ -95,4 +206,19 @@ ORDER BY
   Average_Salary DESC
 LIMIT 5;
 
+-- Insights:
+-- 1. Chief Technology Officer: $250,000
+-- 2. CEO: $250,000
+-- 3. Chief Data Officer: $220,000
+-- 4. Director of Data Science: $204,561.40
+-- 5. VP of Finance: $200,000
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Overall Project Takeaways:
+-- 1. Higher education and more experience lead to higher salaries.
+-- 2. Gender pay gaps persist across various roles, particularly in high-paying positions.
+-- 3. PhD holders earn the highest salaries, averaging $165,684, while high school graduates earn significantly less.
+-- 4. CTO and CEO roles command the highest salaries at $250,000.
+
+-- This project is a part of a broader SQL portfolio, showcasing various SQL applications in real-world datasets. Feedback is always welcome!
