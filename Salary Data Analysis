@@ -1,0 +1,98 @@
+# This project utilized data from the following dataset: https://www.kaggle.com/datasets/mohithsairamreddy/salary-data
+
+# The following SQL was written to answer specific questions about the salary data:
+
+-- Review all information in the database
+-- This query allows us to inspect the entire dataset to understand its structure and contents.
+SELECT *
+FROM salary_data;
+
+-- What is the average salary by gender
+-- This query helps identify potential gender pay disparities.
+SELECT 
+    Gender, 
+    AVG(Salary) AS Average_Salary
+FROM 
+    salary_data
+GROUP BY 
+    Gender;
+
+-- What is the average salary by education level
+-- This query highlights how education impacts salary levels.
+SELECT 
+    "Education Level", 
+    AVG(Salary) AS Average_Salary
+FROM 
+    salary_data
+GROUP BY 
+    "Education Level"
+ORDER BY 
+    Average_Salary DESC;
+
+-- How is the salary distributed by age
+-- This query shows the relationship between age and average salary, as well as total employees by age group.
+SELECT 
+    Age, 
+    AVG(Salary) AS Average_Salary,
+    COUNT(*) AS Total_Employees
+FROM 
+    salary_data
+GROUP BY 
+    Age
+ORDER BY 
+    Age;
+
+-- What is the average salary based on years of experience
+-- This query demonstrates the correlation between years of experience and average salary.
+SELECT 
+    "Years of Experience", 
+    AVG(Salary) AS Average_Salary
+FROM 
+    salary_data
+GROUP BY 
+    "Years of Experience"
+ORDER BY 
+    "Years of Experience";
+
+-- What are the highest-paying jobs
+-- This query identifies the top 10 job titles with the highest average salaries and shows the total number of employees in each role.
+SELECT 
+    "Job Title", 
+    AVG(Salary) AS Average_Salary,
+    COUNT(*) AS Total_Employees
+FROM 
+    salary_data
+GROUP BY 
+    "Job Title"
+ORDER BY 
+    Average_Salary DESC
+LIMIT 10;
+
+-- What is the average salary by gender and job title
+-- This query analyzes salary variations across different job titles and genders to uncover potential disparities.
+SELECT 
+  "Job Title", 
+  Gender, 
+  AVG(Salary) AS Average_Salary
+FROM 
+  salary_data
+GROUP BY 
+  "Job Title", 
+  Gender
+ORDER BY 
+  "Job Title";
+
+-- What are the top 5 highest-paying job titles
+-- This query identifies the five job titles with the highest average salaries.
+SELECT 
+  "Job Title", 
+  AVG(Salary) AS Average_Salary
+FROM 
+  salary_data
+GROUP BY 
+  "Job Title"
+ORDER BY 
+  Average_Salary DESC
+LIMIT 5;
+
+
